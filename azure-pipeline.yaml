@@ -1,0 +1,17 @@
+trigger:
+- master
+
+pr:
+- master
+
+stages:
+- stage: Tests
+  jobs:
+  - job: macOS
+    pool:
+      vmImage: 'macOS-latest'
+    steps:
+    - checkout: self
+
+    - script: |
+        msbuild ./test-project/test-project.csproj /t:build /p:configuration=debug;platform=iPhoneSimulator
